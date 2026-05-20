@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { baseUrl } from "~/queryClientProvider";
 import type { PoliciesApiResponse } from "~/types/policies.types";
 import type { Route } from "./+types/policiesPage";
+import { Policies } from "~/components/policies";
 
 const fetchPolicies = async ({
   signal,
@@ -56,7 +57,7 @@ export default () => {
         <p className="mb-4 text-gray-500 text-sm">Refreshing…</p>
       )}
 
-      {isSuccess && data !== undefined && <p>{jsonData}</p>}
+      {isSuccess && data !== undefined && <Policies policies={data.policies} />}
     </main>
   );
 };
