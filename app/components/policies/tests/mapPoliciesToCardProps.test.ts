@@ -5,6 +5,7 @@ import type { Policy } from "~/types/policies.types";
 import {
   formatDestination,
   formatPolicyDate,
+  isActivePolicy,
   isMultiTripPolicy,
   mapPoliciesToCardProps,
 } from "../mapPoliciesToCardProps";
@@ -47,6 +48,16 @@ describe("formatDestination", () => {
         { code: "AUS", name: "Australia" },
       ]),
     ).toBe("New Zealand, Australia");
+  });
+});
+
+describe("isActivePolicy", () => {
+  it("returns true for active policies", () => {
+    expect(isActivePolicy(basePolicy)).toBe(true);
+  });
+
+  it("returns false for expired policies", () => {
+    expect(isActivePolicy({ ...basePolicy, status: "Expired" })).toBe(false);
   });
 });
 
@@ -155,5 +166,51 @@ describe("mapPoliciesToCardProps", () => {
         excess: "$250",
       },
     ]);
+  });
+
+  it("includes only active policies from a mixed list", () => {
+    const activeFirst: Policy = {
+      ...basePolicy,
+      policyNumber: "active-first",
+      status: "Active",
+    };
+    const expired: Policy = {
+      ...basePolicy,
+      policyNumber: "expired-mid",
+      status: "Expired",
+    };
+    const activeSecond: Policy = {
+      ...basePolicy,
+      policyNumber: "active-second",
+      status: "Active",
+    };
+
+    expect(mapPoliciesToCardProps([activeFirst, expired, activeSecond])).toEqual(
+      [
+        expect.objectContaining({ policyNo: "active-first" }),
+        expect.objectContaining({ policyNo: "active-second" }),
+      ],
+    );
+  });
+
+  it("excludes expired policies", () => {
+    expect(
+      mapPoliciesToCardProps([
+        { ...basePolicy, policyNumber: "expired-1", status: "Expired" },
+      ]),
+    ).toEqual([]);
+  });
+
+  it("returns an empty array when no policies are active", () => {
+    expect(
+      mapPoliciesToCardProps([
+        { ...basePolicy, policyNumber: "expired-1", status: "Expired" },
+        { ...basePolicy, policyNumber: "expired-2", status: "Expired" },
+      ]),
+    ).toEqual([]);
+  });
+
+  it("returns an empty array when the input list is empty", () => {
+    expect(mapPoliciesToCardProps([])).toEqual([]);
   });
 });

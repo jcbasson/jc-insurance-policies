@@ -10,6 +10,13 @@ const fetchPolicies = async ({
   signal?: AbortSignal;
 }): Promise<PoliciesApiResponse> => {
   const response = await fetch(new URL("policies", baseUrl), { signal });
+
+  if (!response.ok) {
+    throw new Error(
+      `Request failed: ${response.status} ${response.statusText}`,
+    );
+  }
+
   return response.json();
 };
 
@@ -38,8 +45,6 @@ export default () => {
     queryFn: ({ signal }) => fetchPolicies({ signal }),
   });
 
-  const jsonData = JSON.stringify(data?.policies);
-
   return (
     <main className="bg-[#F3F4F6] min-h-screen flex flex-col items-center py-12 px-4">
       {isPending && (
@@ -57,7 +62,11 @@ export default () => {
         <p className="mb-4 text-gray-500 text-sm">Refreshing…</p>
       )}
 
-      {isSuccess && data !== undefined && <Policies policies={data.policies} />}
+      {isSuccess && data !== undefined && (
+        <div data-testid="policies-page-content">
+          <Policies policies={data.policies} />
+        </div>
+      )}
     </main>
   );
 };

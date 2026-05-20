@@ -10,6 +10,9 @@
     "typecheck": "react-router typegen && tsc",
     "test": "vitest run",
     "test:watch": "vitest",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:e2e": "cypress run --e2e",
     "api": "npm --prefix api start",
     "api:dev": "npm --prefix api run dev"
   },

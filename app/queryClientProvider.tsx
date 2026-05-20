@@ -33,6 +33,12 @@ const queryClient = new QueryClient({
   },
 });
 
+if (import.meta.env.DEV && typeof window !== "undefined") {
+  (
+    window as Window & { __QUERY_CLIENT__?: QueryClient }
+  ).__QUERY_CLIENT__ = queryClient;
+}
+
 export const SetupQueryClient = ({
   children,
 }: {

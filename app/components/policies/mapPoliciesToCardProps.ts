@@ -1,5 +1,5 @@
 import type { Policy } from "~/types/policies.types";
-import type { MultiTripPolicyCardProps } from "./MultiTripPolicyCard";
+import type { MultiTripPolicyCardProps } from "./policyCard/MultiTripPolicyCard";
 import type { SingleTripPolicyCardProps } from "./policyCard/SingleTripPolicyCard";
 
 export type SingleTripPolicyCardViewModel = SingleTripPolicyCardProps & {
@@ -32,6 +32,8 @@ const formatDestination = (destinations: Policy["destinations"]): string => {
 
   return destinations.map((destination) => destination.name).join(", ");
 };
+
+const isActivePolicy = (policy: Policy): boolean => policy.status === "Active";
 
 const isMultiTripPolicy = (policy: Policy): boolean => {
   return policy.type.toLowerCase().includes("annual");
@@ -78,13 +80,18 @@ const mapMultiTripPolicy = (policy: Policy): MultiTripPolicyCardViewModel => {
 export const mapPoliciesToCardProps = (
   policies: Policy[],
 ): PolicyCardViewModel[] => {
-  return policies.map((policy) => {
-    if (isMultiTripPolicy(policy)) {
-      return mapMultiTripPolicy(policy);
-    }
+  return policies.filter(isActivePolicy).map((policy) => {
+      if (isMultiTripPolicy(policy)) {
+        return mapMultiTripPolicy(policy);
+      }
 
-    return mapSingleTripPolicy(policy);
-  });
+      return mapSingleTripPolicy(policy);
+    });
 };
 
-export { formatDestination, formatPolicyDate, isMultiTripPolicy };
+export {
+  formatDestination,
+  formatPolicyDate,
+  isActivePolicy,
+  isMultiTripPolicy,
+};

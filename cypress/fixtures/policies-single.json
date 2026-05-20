@@ -1,0 +1,22 @@
+{
+  "policies": [
+    {
+      "policyNumber": "726100029411",
+      "policyStart": "2026-05-01",
+      "policyEnd": "2026-05-11",
+      "primaryTravellerFirstname": "Test",
+      "primaryTravellerLastName": "Pradeep",
+      "primaryTravellerPhoneNumber": "0987654321",
+      "status": "Active",
+      "destinations": [{ "code": "NZL", "name": "New Zealand" }],
+      "alphaCode": "CBA0010",
+      "iSO3CountryOfResidence": "AU",
+      "underwriterCode": "Zurich",
+      "groupCode": "CB",
+      "type": "Single Trip",
+      "excess": 250,
+      "maxTripDuration": 0,
+      "planName": "Comprehensive"
+    }
+  ]
+}
