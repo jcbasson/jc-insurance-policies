@@ -4,16 +4,16 @@
 import { Pagination, type PaginationProps } from "../Pagination";
 
 function mountPagination(overrides: Partial<PaginationProps> = {}) {
-  const onPageChange = cy.stub().as("onPageChange");
+  const onPageChange = overrides.onPageChange ?? cy.stub().as("onPageChange");
 
-  const props: PaginationProps = {
-    currentPage: 1,
-    totalPages: 5,
-    onPageChange,
-    ...overrides,
-  };
-
-  cy.mount(<Pagination {...props} />);
+  cy.mount(
+    <Pagination
+      currentPage={1}
+      totalPages={5}
+      onPageChange={onPageChange}
+      {...overrides}
+    />,
+  );
 }
 
 describe("<Pagination />", () => {
@@ -49,15 +49,17 @@ describe("<Pagination />", () => {
     });
 
     it("shows the next chunk only after leaving the last visible page via next", () => {
-      mountPagination({ currentPage: 3, totalPages: 10 });
+      const onPageChange = cy.stub().as("onPageChange");
+
+      mountPagination({ currentPage: 3, totalPages: 10, onPageChange });
       cy.get('button[aria-label="Page 1"]').should("exist");
       cy.get('button[aria-label="Page 3"]').should("exist");
       cy.get('button[aria-label="Page 4"]').should("not.exist");
 
       cy.get('button[aria-label="Next page"]').click();
-      cy.get("@onPageChange").should("have.been.calledWith", 4);
+      cy.get("@onPageChange").should("have.been.calledOnceWith", 4);
 
-      mountPagination({ currentPage: 4, totalPages: 10 });
+      mountPagination({ currentPage: 4, totalPages: 10, onPageChange });
       cy.get('button[aria-label="Page 4"]').should("exist");
       cy.get('button[aria-label="Page 5"]').should("exist");
       cy.get('button[aria-label="Page 6"]').should("exist");
@@ -65,15 +67,17 @@ describe("<Pagination />", () => {
     });
 
     it("shows the previous chunk only after leaving the first visible page via previous", () => {
-      mountPagination({ currentPage: 4, totalPages: 10 });
+      const onPageChange = cy.stub().as("onPageChange");
+
+      mountPagination({ currentPage: 4, totalPages: 10, onPageChange });
       cy.get('button[aria-label="Page 4"]').should("exist");
       cy.get('button[aria-label="Page 6"]').should("exist");
       cy.get('button[aria-label="Page 3"]').should("not.exist");
 
       cy.get('button[aria-label="Previous page"]').click();
-      cy.get("@onPageChange").should("have.been.calledWith", 3);
+      cy.get("@onPageChange").should("have.been.calledOnceWith", 3);
 
-      mountPagination({ currentPage: 3, totalPages: 10 });
+      mountPagination({ currentPage: 3, totalPages: 10, onPageChange });
       cy.get('button[aria-label="Page 1"]').should("exist");
       cy.get('button[aria-label="Page 2"]').should("exist");
       cy.get('button[aria-label="Page 3"]').should("exist");
