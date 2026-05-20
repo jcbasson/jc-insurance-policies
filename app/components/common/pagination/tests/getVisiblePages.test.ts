@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getVisiblePages } from "./getVisiblePages";
+import { getVisiblePages } from "../getVisiblePages";
 
 describe("getVisiblePages", () => {
   it("returns all pages when total is less than three", () => {

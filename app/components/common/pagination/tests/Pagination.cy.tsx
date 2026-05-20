@@ -1,4 +1,7 @@
-import { Pagination, type PaginationProps } from "./Pagination";
+/// <reference types="cypress" />
+/// <reference types="cypress/react" />
+
+import { Pagination, type PaginationProps } from "../Pagination";
 
 function mountPagination(overrides: Partial<PaginationProps> = {}) {
   const onPageChange = cy.stub().as("onPageChange");

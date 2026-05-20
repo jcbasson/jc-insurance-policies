@@ -1,4 +1,5 @@
 import { defineConfig } from "cypress";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   allowCypressEnv: false,
@@ -7,6 +8,9 @@ export default defineConfig({
     devServer: {
       framework: "react",
       bundler: "vite",
+      viteConfig: {
+        plugins: [tailwindcss()],
+      },
     },
   },
 });

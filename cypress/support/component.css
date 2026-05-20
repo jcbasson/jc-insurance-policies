@@ -1,0 +1,15 @@
+html,
+body,
+[data-cy-root] {
+  background-color: #ffffff !important;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  html,
+  body,
+  [data-cy-root] {
+    background-color: #ffffff !important;
+    color-scheme: light;
+  }
+}

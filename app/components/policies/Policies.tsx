@@ -3,7 +3,7 @@ import type { Policy } from "~/types/policies.types";
 import { MultiTripPolicyCard } from "./policyCard/MultiTripPolicyCard";
 import { SingleTripPolicyCard } from "./policyCard/SingleTripPolicyCard";
 import { mapPoliciesToCardProps } from "./mapPoliciesToCardProps";
-import { Pagination } from "../common/Pagination";
+import { Pagination } from "../common/pagination/Pagination";
 
 const POLICIES_PER_PAGE = 3;
 
