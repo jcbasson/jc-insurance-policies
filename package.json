@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "postinstall": "react-router typegen",
+    "postinstall": "node scripts/ensure-env.mjs && react-router typegen",
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",

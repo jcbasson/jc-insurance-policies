@@ -21,10 +21,16 @@ Install API dependencies:
 npm install --prefix api
 ```
 
-Create a `.env` file in the project root (or copy from the example below). The app reads the API base URL from here:
+Environment variables: `npm install` creates `.env` from `.env.example` if you do not have one yet. The app uses `VITE_BASE_URL` to reach the mock API:
 
 ```env
 VITE_BASE_URL=http://localhost:3001/v1/
+```
+
+To create or reset it manually:
+
+```bash
+cp .env.example .env
 ```
 
 ---

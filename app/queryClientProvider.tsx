@@ -1,13 +1,21 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const DEFAULT_DEV_BASE_URL = "http://localhost:3001/v1/";
+
 const getBaseUrl = (): string => {
   const baseUrl = import.meta.env.VITE_BASE_URL;
-  if (typeof baseUrl !== "string" || baseUrl.length === 0) {
-    throw new Error(
-      "Missing VITE_BASE_URL. Add it to .env (see Vite env docs: variables must be prefixed with VITE_ for client code).",
-    );
+
+  if (typeof baseUrl === "string" && baseUrl.length > 0) {
+    return baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   }
-  return baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+
+  if (import.meta.env.DEV) {
+    return DEFAULT_DEV_BASE_URL;
+  }
+
+  throw new Error(
+    "Missing VITE_BASE_URL. Copy .env.example to .env and set VITE_BASE_URL (see README).",
+  );
 };
 
 const baseUrl = getBaseUrl();
