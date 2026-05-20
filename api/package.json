@@ -1,0 +1,11 @@
+{
+  "name": "jc-insurance-policies-api",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}

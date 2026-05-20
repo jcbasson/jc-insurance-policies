@@ -1,0 +1,47 @@
+/**
+ * Policies UI theme — Tailwind v4 @theme tokens.
+ * To reskin: change values here (or duplicate this file and swap the import in app.css).
+ */
+@theme {
+  /* Surfaces */
+  --color-policies-surface: #ffffff;
+
+  --radius-policies-card: 2rem;
+  --shadow-policies-card: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+  /* Typography */
+  --text-policies-detail: 15px;
+  --text-policies-links: 13px;
+  --text-policies-icon: 11px;
+
+  --color-policies-accent: #2563eb;
+  --color-policies-body: #1f2937;
+  --color-policies-link-meta: #374151;
+  --color-policies-divider: #e5e7eb;
+  --color-policies-focus-ring: #2563eb;
+
+  /* Primary CTA (e.g. Make a claim) */
+  --color-policies-cta-primary-bg: #fde68a;
+  --color-policies-cta-primary-border: #2563eb;
+  --color-policies-cta-primary-text: #1e3a8a;
+
+  /* Secondary CTA (e.g. Manage my policy) */
+  --color-policies-cta-secondary-bg: #ffffff;
+  --color-policies-cta-secondary-border: #2563eb;
+  --color-policies-cta-secondary-text: #2563eb;
+
+  /* Pagination */
+  --color-policies-pagination-ink: #1f2937;
+  --color-policies-pagination-border: #9ca3af;
+  --color-policies-pagination-hover-bg: #e5e7eb;
+  --color-policies-pagination-active-bg: #2563eb;
+  --color-policies-pagination-active-text: #ffffff;
+  --color-policies-pagination-nav-hover: #2563eb;
+}
+
+@layer components {
+  .policies-focus-ring:focus-visible {
+    outline: 2px solid var(--color-policies-focus-ring);
+    outline-offset: 2px;
+  }
+}
